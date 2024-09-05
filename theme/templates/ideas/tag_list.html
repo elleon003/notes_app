@@ -1,0 +1,20 @@
+<!-- templates/ideas/tag_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-3xl font-bold mb-6">Tags</h1>
+    <a href="{% url 'tag_create' %}" class="bg-purple-950 text-emerald-800 py-2 px-4 rounded hover:bg-purple-900 mb-4 inline-block">Add Tag</a>
+    <ul class="space-y-2">
+        {% for tag in tags %}
+            <li class="flex justify-between items-center bg-white p-4 rounded-lg shadow">
+                <span>{{ tag.name }}</span>
+                <div>
+                    <a href="{% url 'tag_update' tag.pk %}" class="text-purple-950 hover:text-purple-800 mr-2">Edit</a>
+                    <a href="{% url 'tag_delete' tag.pk %}" class="text-red-600 hover:text-red-800">Delete</a>
+                </div>
+            </li>
+        {% empty %}
+            <li>No tags yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

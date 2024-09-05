@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-3xl font-bold mb-6">{% if form.instance.pk %}Edit Category{% else %}Create Category{% endif %}</h1>
+    <form method="post" class="bg-white shadow-md rounded-lg p-6">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="{{ form.name.id_for_label }}" class="block text-purple-950 font-bold mb-2">Category Name</label>
+            {{ form.name }}
+        </div>
+        <button type="submit" class="bg-purple-950 text-emerald-800 py-2 px-4 rounded hover:bg-purple-900">
+            {% if form.instance.pk %}Update{% else %}Create{% endif %} Category
+        </button>
+    </form>
+{% endblock %}

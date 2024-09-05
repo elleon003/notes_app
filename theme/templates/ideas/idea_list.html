@@ -1,0 +1,31 @@
+<!-- templates/ideas/idea_list.html -->
+{% extends 'base.html' %} 
+{% block title %}My Ideas{% endblock %} 
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">My Ideas</h1>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for idea in ideas %}
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-semibold mb-2">
+      {{ idea.content|truncatechars:50 }}
+    </h2>
+    <p class="text-gray-600 mb-4">{{ idea.created_at|date:"M d, Y" }}</p>
+    <a
+      href="{% url 'idea_detail' idea.pk %}"
+      class="text-purple-950 hover:text-purple-800"
+      >View Details</a
+    >
+  </div>
+  {% empty %}
+  <p>
+    No ideas yet.
+    <a
+      href="{% url 'idea_create' %}"
+      class="text-purple-950 hover:text-purple-800"
+      >Create one!</a
+    >
+  </p>
+  {% endfor %}
+</div>
+{% endblock %}

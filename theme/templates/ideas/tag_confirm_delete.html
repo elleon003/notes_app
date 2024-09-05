@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-3xl font-bold mb-6">Delete Tag</h1>
+    <p class="mb-4">Are you sure you want to delete the tag "{{ tag.name }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 mr-2">Confirm Delete</button>
+        <a href="{% url 'tag_list' %}" class="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+
+{% block title %}Delete Idea{% endblock %} 
+
+{% block content %}
+<div class="bg-white shadow-md rounded-lg p-6">
+  <h1 class="text-3xl font-bold mb-6">Delete Idea</h1>
+  <p class="mb-4">
+    Are you sure you want to delete the idea: "{{ idea.content|truncatechars:50 }}"?
+  </p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="flex space-x-4">
+      <button
+        type="submit"
+        class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700"
+      >
+        Confirm Delete
+      </button>
+      <a
+        href="{% url 'idea_detail' idea.pk %}"
+        class="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
+      >
+        Cancel
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}
