@@ -3,7 +3,7 @@
 
 {% block content %}
     <h1 class="text-3xl font-bold mb-6">Tags</h1>
-    <a href="{% url 'tag_create' %}" class="bg-purple-950 text-emerald-800 py-2 px-4 rounded hover:bg-purple-900 mb-4 inline-block">Add Tag</a>
+    <a href="{% url 'tag_create' %}" class="bg-emerald-800 text-white py-2 px-4 rounded hover:bg-purple-900 mb-4 inline-block">Add Tag</a>
     <ul class="space-y-2">
         {% for tag in tags %}
             <li class="flex justify-between items-center bg-white p-4 rounded-lg shadow">
