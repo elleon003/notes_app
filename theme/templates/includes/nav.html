@@ -1,46 +1,61 @@
-<div class="container mx-auto flex justify-between items-center text-white">
+<div class="container mx-auto px-4">
   <nav class="flex items-center justify-between flex-wrap py-4">
     <div class="flex items-center flex-shrink-0 mr-6">
       <a href="{% url 'home' %}" class="font-bold text-2xl">Idea Manager</a>
     </div>
     <div class="block lg:hidden">
       <button
-        id="nav-toggle"
-        class="text-emerald-800 hover:text-emerald-600"
-        aria-label="Toggle menu"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          ></path>
-        </svg>
-      </button>
+  id="nav-toggle"
+  class="text-white relative w-6 h-6"
+  aria-label="Toggle menu"
+>
+  <svg
+    class="w-6 h-6 transition-opacity duration-200 ease-in-out"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M4 6h16M4 12h16M4 18h16"
+    ></path>
+  </svg>
+  <svg
+    class="w-6 h-6 absolute top-0 left-0 opacity-0 transition-opacity duration-200 ease-in-out"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M6 18L18 6M6 6l12 12"
+    ></path>
+  </svg>
+</button>
+
     </div>
-    <div id="nav-content" class="hidden lg:flex lg:items-center lg:w-auto">
+    <div id="nav-content" class="hidden w-full lg:flex lg:items-center lg:w-auto">
       <div class="lg:flex-grow">
         {% if user.is_authenticated %}
         <a
           href="{% url 'idea_create' %}"
-          class="block mt-4 lg:inline-block lg:mt-0 hover:text-emerald-600 mr-4"
+          class="block mt-4 lg:inline-block lg:mt-0 hover:white p-2 hover:bg-emerald-500 hover:ease-in-out duration-300" 
           >New Idea</a
         >
         <a
           href="{% url 'category_list' %}"
-          class="block mt-4 lg:inline-block lg:mt-0 hover:text-emerald-600 mr-4"
+          class="block mt-4 lg:inline-block lg:mt-0 hover:white p-2 hover:bg-emerald-500 hover:ease-in-out duration-300"
           >Categories</a
         >
         <a
           href="{% url 'tag_list' %}"
-          class="block mt-4 lg:inline-block lg:mt-0 hover:text-emerald-600 mr-4"
+          class="block mt-4 lg:inline-block lg:mt-0 hover:white p-2 hover:bg-emerald-500 hover:ease-in-out duration-300"
           >Tags</a
         >
         {% endif %}
@@ -51,7 +66,7 @@
           {% csrf_token %}
           <button
             type="submit"
-            class="block mt-4 lg:inline-block lg:mt-0 hover:text-emerald-600"
+            class="block mt-4 lg:inline-block lg:mt-0 hover:text-white p-2 hover:bg-emerald-500 hover:ease-in-out duration-300"
           >
             Logout
           </button>
@@ -59,98 +74,52 @@
         {% else %}
         <a
           href="{% url 'login' %}"
-          class="block mt-4 lg:inline-block lg:mt-0 hover:text-emerald-600"
+          class="block mt-4 lg:inline-block lg:mt-0 hover:text-white p-2 hover:bg-emerald-500 hover:ease-in-out duration-300"
           >Login</a
         >
         {% endif %}
       </div>
     </div>
-
-    <div
-      id="mobile-menu"
-      class="lg:hidden fixed inset-y-0 left-0 w-64 bg-purple-950 text-emerald-800 p-4 menu-slide z-40"
-    >
-      <div class="flex flex-col h-full">
-        <div class="flex-grow">
-          {% if user.is_authenticated %}
-          <a
-            href="{% url 'idea_create' %}"
-            class="block py-2 hover:text-emerald-600"
-            >New Idea</a
-          >
-          <a
-            href="{% url 'category_list' %}"
-            class="block py-2 hover:text-emerald-600"
-            >Categories</a
-          >
-          <a
-            href="{% url 'tag_list' %}"
-            class="block py-2 hover:text-emerald-600"
-            >Tags</a
-          >
-          {% endif %}
-        </div>
-        <div>
-          {% if user.is_authenticated %}
-          <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button
-              type="submit"
-              class="block w-full text-left py-2 hover:text-emerald-600"
-            >
-              Logout
-            </button>
-          </form>
-          {% else %}
-          <a href="{% url 'login' %}" class="block py-2 hover:text-emerald-600"
-            >Login</a
-          >
-          {% endif %}
-        </div>
-      </div>
-    </div>
-    <div
-      id="mobile-menu"
-      class="lg:hidden fixed inset-y-0 left-0 w-64 bg-purple-950 text-emerald-800 p-4 menu-slide z-40"
-    >
-      <div class="flex flex-col h-full">
-        <div class="flex-grow">
-          {% if user.is_authenticated %}
-          <a
-            href="{% url 'idea_create' %}"
-            class="block py-2 hover:text-emerald-600"
-            >New Idea</a
-          >
-          <a
-            href="{% url 'category_list' %}"
-            class="block py-2 hover:text-emerald-600"
-            >Categories</a
-          >
-          <a
-            href="{% url 'tag_list' %}"
-            class="block py-2 hover:text-emerald-600"
-            >Tags</a
-          >
-          {% endif %}
-        </div>
-        <div>
-          {% if user.is_authenticated %}
-          <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button
-              type="submit"
-              class="block w-full text-left py-2 hover:text-emerald-600"
-            >
-              Logout
-            </button>
-          </form>
-          {% else %}
-          <a href="{% url 'login' %}" class="block py-2 hover:text-emerald-600"
-            >Login</a
-          >
-          {% endif %}
-        </div>
-      </div>
-    </div>
   </nav>
+</div>
+
+<div id="mobile-menu" class="lg:hidden fixed inset-y-0 left-0 w-64 bg-purple-950 text-white p-4 transform -translate-x-full transition-transform duration-200 ease-in-out z-40">
+  <div class="flex flex-col h-full">
+    <div class="flex-grow">
+      {% if user.is_authenticated %}
+      <a
+        href="{% url 'idea_create' %}"
+        class="block py-2 hover:bg-emerald-500"
+        >New Idea</a
+      >
+      <a
+        href="{% url 'category_list' %}"
+        class="block py-2 hover:bg-emerald-500"
+        >Categories</a
+      >
+      <a
+        href="{% url 'tag_list' %}"
+        class="block py-2 hover:bg-emerald-500"
+        >Tags</a
+      >
+      {% endif %}
+    </div>
+    <div>
+      {% if user.is_authenticated %}
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button
+          type="submit"
+          class="block w-full text-left py-2 hover:bg-emerald-500"
+        >
+          Logout
+        </button>
+      </form>
+      {% else %}
+      <a href="{% url 'login' %}" class="block py-2 hover:bg-emerald-500"
+        >Login</a
+      >
+      {% endif %}
+    </div>
+  </div>
 </div>

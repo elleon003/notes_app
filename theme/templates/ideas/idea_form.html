@@ -69,12 +69,15 @@ else %}New Idea{% endif %}
       </div>
     </div>
   </div>
-  <button
-    type="submit"
-    class="bg-emerald-800 text-white py-2 px-4 rounded hover:bg-purple-950"
-  >
-    {% if form.instance.pk %}Update{% else %}Create{% endif %} Idea
-  </button>
+  <div class="flex">
+    <button type="submit" class="bg-emerald-800 text-white py-2 px-4 rounded hover:bg-purple-950 hover:ease-in duration-300">
+      {% if form.instance.pk %}Update{% else %}Create{% endif %} Idea
+    </button>
+    <a href="{% url 'home' %}" class="bg-gray-300 text-gray-800 py-2 px-4 rounded ml-8 hover:bg-gray-400 hover:ease-in duration-300">
+        Cancel
+      </a>
+  </div>
+  
 </form>
 {% endblock %}
 

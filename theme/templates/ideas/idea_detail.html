@@ -40,16 +40,21 @@
     <div class="mt-6 flex space-x-4">
       <a
         href="{% url 'idea_update' idea.pk %}"
-        class="bg-emerald-800 text-white py-2 px-4 rounded hover:bg-purple-900"
+        class="bg-emerald-800 text-white py-2 px-4 rounded hover:bg-purple-900 hover:ease-in duration-300"
       >
         Edit Idea
       </a>
       <a
         href="{% url 'idea_delete' idea.pk %}"
-        class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700"
+        class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 hover:ease-in duration-300"
       >
         Delete Idea
       </a>
     </div>
+</div>
   {% endif %}
+  <div class="flex md:w-96 justify-between mt-6 mx-4">
+    <a href="{% url 'idea_create' %}" class="font-bold text-purple-950 hover:text-purple-900 hover:ease-in duration-300">Create New Idea</a>
+    <a href="{% url 'home' %}" class="font-bold text-emerald-800 hover:text-emerald-700 hover:ease-in duration-300">Back to Home</a>
+  </div>
 {% endblock %}
