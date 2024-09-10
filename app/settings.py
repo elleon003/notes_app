@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'theme',
     'users',
     'ideas',
+    'pages',
 ]
 
 MIDDLEWARE = [
@@ -113,6 +114,14 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'users.backends.EmailBackend', 
+    'django.contrib.auth.backends.ModelBackend'
+]
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 
 # Internationalization
