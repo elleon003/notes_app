@@ -8,14 +8,16 @@
     {% tailwind_css %}
   </head>
   <body class="bg-slate-100">
-    <header>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-purple-950 text-white p-2">Skip to main content</a>
+
+    <header class="bg-purple-950 p-4">
       {% include 'includes/nav.html' %}
     </header>
 
-    <main class="container mx-auto mt-8 px-4">
+    <main id="main-content" class="container mx-auto mt-8 px-4">
       {% block content %}{% endblock %}
     </main>
-    
+
     <footer></footer>
     <!-- Logout confirmation -->
     <script>
@@ -31,8 +33,51 @@
           }
       });
     </script>
-  
-    {% block extra_js %}{% endblock %}
 
+    <!-- Mobile Menu Helper -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const navToggle = document.getElementById('nav-toggle');
+          const mobileMenu = document.getElementById('mobile-menu');
+          const mainContent = document.getElementById('main-content');
+
+          function openMenu() {
+              mobileMenu.classList.add('open');
+              navToggle.setAttribute('aria-expanded', 'true');
+              mobileMenu.setAttribute('aria-hidden', 'false');
+              document.body.style.overflow = 'hidden';
+          }
+
+          function closeMenu() {
+              mobileMenu.classList.remove('open');
+              navToggle.setAttribute('aria-expanded', 'false');
+              mobileMenu.setAttribute('aria-hidden', 'true');
+              document.body.style.overflow = '';
+          }
+
+          navToggle.addEventListener('click', function(e) {
+              e.stopPropagation();
+              if (mobileMenu.classList.contains('open')) {
+                  closeMenu();
+              } else {
+                  openMenu();
+              }
+          });
+
+          document.addEventListener('click', function(event) {
+              if (!mobileMenu.contains(event.target) && !navToggle.contains(event.target)) {
+                  closeMenu();
+              }
+          });
+
+          window.addEventListener('resize', function() {
+              if (window.innerWidth >= 1024) {
+                  closeMenu();
+              }
+          });
+      });
+  </script>
+
+    {% block extra_js %}{% endblock %}
   </body>
 </html>

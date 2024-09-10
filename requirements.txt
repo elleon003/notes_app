@@ -3,6 +3,7 @@ django-tailwind==3.8.0
 pillow==10.4.0
 django-browser-reload==1.15.0
 Faker==28.4.1
+python-decouple==3.8
 
 
 
