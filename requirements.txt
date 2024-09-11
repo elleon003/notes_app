@@ -4,6 +4,9 @@ pillow==10.4.0
 django-browser-reload==1.15.0
 Faker==28.4.1
 python-decouple==3.8
-
+django-allauth==64.2.1
+PyJWT==2.9.0
+cryptography==43.0.1
+requests==2.32.3
 
 
