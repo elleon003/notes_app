@@ -1,7 +1,11 @@
 from .base import *
+import logging
 
+logging.basicConfig(level=logging.DEBUG)
 
 DEBUG = True
+
+TEMPLATES[0]['OPTIONS']['debug'] = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
