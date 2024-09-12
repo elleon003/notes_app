@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply bg-emerald-800 text-white font-bold py-2 px-4 rounded hover:bg-purple-900 hover:ease-in duration-300 focus:outline-none;
+  }
+}

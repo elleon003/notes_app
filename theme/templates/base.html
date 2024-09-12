@@ -26,7 +26,7 @@
 
     <header class="bg-purple-950 p-4 text-white">{% include 'includes/nav.html' %}</header>
 
-    <main id="main-content" class="container mx-auto my-12 px-4 shrink-0">
+    <main id="main-content" class="container mx-auto my-16 px-4 shrink-0">
       {% block content %}{% endblock %}
     </main>
 
@@ -105,8 +105,41 @@
           });
         });
       }
-    </script>    
+    </script>   
+    
+    <!-- App install prompt -->
+    <script>
+      let deferredPrompt;
 
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // Show your custom "Add to Home Screen" button or banner here
+      });
+
+      // When the user clicks your custom button:
+      installButton.addEventListener('click', (e) => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the A2HS prompt');
+            }
+            deferredPrompt = null;
+          });
+        }
+      });
+    </script>
+
+    <!-- Offline sync Trigger when back online -->
+    <script>
+      window.addEventListener('online', () => {
+        navigator.serviceWorker.ready.then((swRegistration) => {
+          return swRegistration.sync.register('sync-ideas');
+        });
+      })
+    </script>
+      
     {% block extra_js %}{% endblock %}
   </body>
 </html>

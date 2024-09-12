@@ -27,7 +27,7 @@ else %}New Idea{% endif %}
       Additional Fields ▼
     </button>
     <div id="additionalFields" class="hidden">
-      <div class="mb-4">
+      <div class="my-4">
         <label
           for="{{ form.side_notes.id_for_label }}"
           class="block text-purple-950 font-bold mb-2"
@@ -52,19 +52,24 @@ else %}New Idea{% endif %}
         {{ form.due_date }}
       </div>
       <div class="mb-4">
-        <label
+        <div class="flex items-center gap-2">
+          <label
           for="{{ form.category.id_for_label }}"
           class="block text-purple-950 font-bold mb-2"
-          >Category</label
-        >
+          >Category</label>
+          <a href="{% url "category_create" %}" class="text-emerald-800 font-semibold text-sm">Create New Category</a>
+        </div>
         {{ form.category }}
+        
       </div>
       <div class="mb-4">
-        <label
-          for="{{ form.tags.id_for_label }}"
-          class="block text-purple-950 font-bold mb-2"
-          >Tags</label
-        >
+        <div class="flex items-center gap-2">
+          <label
+            for="{{ form.tags.id_for_label }}"
+            class="block text-purple-950 font-bold mb-2"
+            >Tags</label>
+          <a href="{% url "tag_create" %}" class="text-emerald-800 font-semibold text-sm">Create New Tags</a>
+        </div>
         {{ form.tags }}
       </div>
     </div>

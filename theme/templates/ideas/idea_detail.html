@@ -24,8 +24,13 @@
     </div>
   </div>
   {% if idea.category %}
-  <p class="mb-2"><strong>Category:</strong> {{ idea.category }}</p>
-  {% endif %} {% if idea.tags.all %}
+  <div class="flex gap-2">
+    <p class="mb-2"><strong>Category:</strong> {{ idea.category }}</p>
+  </div>
+  
+  {% endif %} 
+  
+  {% if idea.tags.all %}
   <p class="mb-4">
     <strong>Tags:</strong>
     {% for tag in idea.tags.all %}
