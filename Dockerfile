@@ -23,6 +23,10 @@ COPY . /code/
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
+# Debugging: List contents of /code
+RUN ls -la /code
+RUN cat /code/entrypoint.sh
+
 # Set the entrypoint
 ENTRYPOINT ["/code/entrypoint.sh"]
 
