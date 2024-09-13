@@ -16,15 +16,15 @@ RUN pip install -r requirements.txt
 # Copy project
 COPY . /code/
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
-
-# Run gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app.wsgi:application"]
-
 # Copy entrypoint script
 COPY entrypoint.sh /code/entrypoint.sh
 RUN chmod +x /code/entrypoint.sh
 
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
 # Run entrypoint script
 ENTRYPOINT ["/code/entrypoint.sh"]
+
+# Run gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app.wsgi:application"]
