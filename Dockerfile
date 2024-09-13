@@ -11,6 +11,7 @@ ENV PYTHONUNBUFFERED=1
 
 # Install pip requirements
 COPY requirements.txt .
+RUN python -m pip install psycopg2-binary==2.9.3 --no-cache-dir
 RUN python -m pip install -r requirements.txt
 
 WORKDIR /app
