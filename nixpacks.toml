@@ -1,3 +1,7 @@
+[variables]
+DJANGO_SETTINGS_MODULE = "app.settings.prod"
+PYTHONPATH = "/app"
+
 [phases.setup]
 nixPkgs = ['python311', 'postgresql', 'gcc']
 
@@ -5,11 +9,10 @@ nixPkgs = ['python311', 'postgresql', 'gcc']
 cmds = ['python -m venv /opt/venv && . /opt/venv/bin/activate && pip install -r requirements.txt']
 
 [phases.build]
-cmds = ['DJANGO_SETTINGS_MODULE=app.settings.prod python manage.py collectstatic --noinput']
+cmds = ['. /opt/venv/bin/activate && DJANGO_SETTINGS_MODULE=app.settings.prod python manage.py collectstatic --noinput']
+
+[phases.release]
+cmds = ['. /opt/venv/bin/activate && DJANGO_SETTINGS_MODULE=app.settings.prod python manage.py migrate']
 
 [start]
-cmd = 'bash start.sh'
-
-[variables]
-DJANGO_SETTINGS_MODULE = "app.settings.prod"
-PYTHONPATH = "/app"
+cmd = '. /opt/venv/bin/activate && DJANGO_SETTINGS_MODULE=app.settings.prod gunicorn app.wsgi:application --bind 0.0.0.0:$PORT'
