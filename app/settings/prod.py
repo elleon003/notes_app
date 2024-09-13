@@ -25,11 +25,16 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
-DATABASES['default'] = dj_database_url.config(
-    default='postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}',
-    conn_max_age=600,
-    conn_health_checks=True,
-)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME'), 
+        'USER': config('DB_USER'), 
+        'PASSWORD': config('DB_PASSWORD'), 
+        'HOST': config('DB_HOST'), 
+        'PORT': config('DB_PORT'), 
+    }
+}
 
 
 # Static files storage (consider using a CDN in production)
