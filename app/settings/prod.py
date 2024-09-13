@@ -1,8 +1,7 @@
 from .base import *
 
-# These can be set when ready @TODO
-# DEBUG = False
-# ALLOWED_HOSTS = ['my-domain-here.com']
+DEBUG = False
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'notes.s9apps.com']
 
 SECRET_KEY = config('SECRET_KEY')
 
@@ -23,16 +22,17 @@ EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
-# Database configuration (replace with your production database settings)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
