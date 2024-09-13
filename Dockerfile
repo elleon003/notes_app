@@ -24,4 +24,5 @@ USER appuser
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 ENV STATIC_ROOT /static
+RUN chmod +x entrypoint.sh
 CMD ["/app/entrypoint.sh"]
