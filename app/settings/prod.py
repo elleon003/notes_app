@@ -1,5 +1,4 @@
 from .base import *
-import dj_database_url
 
 DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'notes.s9apps.com']
