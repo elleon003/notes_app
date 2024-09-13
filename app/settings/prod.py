@@ -26,7 +26,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 DATABASES['default'] = dj_database_url.config(
-    default='postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}',
+    default='postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:$5432/${DB_NAME}',
     conn_max_age=600,
     conn_health_checks=True,
 )
