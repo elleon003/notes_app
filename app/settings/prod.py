@@ -1,3 +1,4 @@
+import dj_database_url
 from .base import *
 
 DEBUG = False
@@ -26,14 +27,7 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': 5432,
-    }
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 # Static files storage (consider using a CDN in production)
