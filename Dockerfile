@@ -16,10 +16,6 @@ RUN pip install -r requirements.txt
 # Copy project
 COPY . /code/
 
-# Run Tailwind build for production CSS
-RUN python manage.py tailwind install 
-RUN python manage.py tailwind build
-
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
