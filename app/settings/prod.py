@@ -1,4 +1,5 @@
 from .base import *
+import dj_database_url
 
 DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'notes.s9apps.com']
@@ -24,17 +25,14 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME'), 
-        'USER': config('DB_USER'), 
-        'PASSWORD': config('DB_PASSWORD'), 
-        'HOST': config('DB_HOST'), 
-        'PORT': config('DB_PORT'), 
-    }
-}
+DATABASE_URL = config('DATABASE_URL')
 
+DATABASES = {
+    'default': dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+    ),
+}
 
 # Static files storage (consider using a CDN in production)
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
