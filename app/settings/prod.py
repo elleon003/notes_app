@@ -3,6 +3,7 @@ import dj_database_url
 
 DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'notes.s9apps.com']
+CSRF_TRUSTED_ORIGINS = ['localhost', '127.0.0.1', 'notes.s9apps.com']
 
 SECRET_KEY = config('SECRET_KEY')
 
@@ -28,11 +29,9 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 DATABASE_URL = config('DATABASE_URL')
 
 DATABASES = {
-    'default': dj_database_url.config(
-        conn_max_age=600,
-        conn_health_checks=True,
-    ),
+    'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
 }
 
-# Static files storage (consider using a CDN in production)
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+# Whitenoise for static file serving
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
