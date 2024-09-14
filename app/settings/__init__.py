@@ -1,13 +1,11 @@
-import os
 from decouple import config
 
-# Default to using the base settings
-settings_module = 'app.settings.base'
+# Default to using the development settings
+environment = config('DJANGO_ENVIRONMENT', default='development')
 
-if config('DJANGO_ENVIRONMENT') == 'production':
-    settings_module = 'app.settings.prod'
-elif config('DJANGO_ENVIRONMENT') == 'development':
-    settings_module = 'app.settings.dev'
-
-# Use exec() to dynamically import the appropriate settings module
-exec(f"from {settings_module} import *")
+if environment == 'production':
+    from .prod import *
+elif environment == 'development':
+    from .dev import *
+else:
+    raise ValueError(f"Unknown environment: {environment}")
