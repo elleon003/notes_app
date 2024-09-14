@@ -26,6 +26,10 @@ DATABASES = {
     'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
 }
 
+STATIC_ROOT = '/app/staticfiles'
+MEDIA_ROOT = '/app/media'
+
+
 # Whitenoise for static file serving
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 STORAGES = {
@@ -34,3 +38,4 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
