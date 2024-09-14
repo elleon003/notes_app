@@ -25,4 +25,4 @@ USER appuser
 # Run entrypoint script
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
-CMD ["./entrypoint.sh"]
+CMD ["/app/entrypoint.sh"]
