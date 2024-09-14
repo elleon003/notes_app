@@ -9,5 +9,5 @@ cd /app
 # Run the commands
 python manage.py collectstatic --noinput
 python manage.py migrate --noinput
-python manage.py create_superuser
+python manage.py create_default_superuser
 gunicorn -b :8000 app.wsgi

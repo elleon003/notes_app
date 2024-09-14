@@ -22,6 +22,10 @@ COPY . /app
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
+# Set up static directory with correct permissions
+RUN mkdir -p /app/static /app/staticfiles && \
+    chown -R appuser:appuser /app
+
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 ENV STATIC_ROOT /static
 RUN chmod +x entrypoint.sh
