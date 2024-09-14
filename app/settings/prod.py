@@ -3,7 +3,7 @@ import dj_database_url
 
 DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'notes.s9apps.com, notes-app-notes-app-main.xbekux.easypanel.host']
-CSRF_TRUSTED_ORIGINS = ['https://notes.s9apps.com', 'https://notes-app-notes-app-main.xbekux.easypanel.host/']
+CSRF_TRUSTED_ORIGINS = ['https://notes.s9apps.com', 'https://notes-app-notes-app-main.xbekux.easypanel.host']
 
 SECRET_KEY = config('SECRET_KEY')
 
