@@ -3,19 +3,13 @@ import dj_database_url
 
 DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'notes.s9apps.com']
-CSRF_TRUSTED_ORIGINS = ['localhost', '127.0.0.1', 'notes.s9apps.com']
+CSRF_TRUSTED_ORIGINS = ['https://notes.s9apps.com']
 
 SECRET_KEY = config('SECRET_KEY')
 
 # Use a more secure session cookie
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-
-# HTTPS settings
-# SECURE_SSL_REDIRECT = True
-# SECURE_HSTS_SECONDS = 31536000  # 1 year
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
 
 # Email configuration (replace with your actual email settings)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
