@@ -25,7 +25,8 @@ RUN adduser --disabled-password --gecos "" appuser
 
 # Set up directories and permissions
 RUN mkdir -p /app/staticfiles /app/media && \
-    chown -R appuser:appuser /app
+    chown -R appuser:appuser /app && \
+    chmod -R 755 /app/staticfiles
 
 # Switch to non-root user
 USER appuser
