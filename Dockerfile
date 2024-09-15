@@ -17,23 +17,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project
-COPY . .
-
 # Create a non-root user
 RUN adduser --disabled-password --gecos "" appuser
 
-# Set up directories and permissions
+# Create directories with correct permissions
 RUN mkdir -p /app/staticfiles /app/media && \
     chown -R appuser:appuser /app && \
-    chmod -R 755 /app/staticfiles
+    chmod -R 755 /app
+
+# Copy project files and set permissions
+COPY --chown=appuser:appuser . .
+
+# Set environment variable for static files
+ENV STATIC_ROOT /app/staticfiles
+ENV DJANGO_ENVIRONMENT production
+
 
 # Switch to non-root user
 USER appuser
-
-# Set environment variable for static files & environment
-ENV STATIC_ROOT /app/staticfiles
-ENV DJANGO_ENVIRONMENT production
 
 # Make sure the entrypoint is executable
 RUN chmod +x /app/entrypoint.sh
