@@ -1,13 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
-# Ensure we're in the correct directory
+set -e
+
 cd /app
 
-# # Activate the PDM environment
-# source .venv/bin/activate
-
-# Run the commands
 python manage.py collectstatic --noinput
 python manage.py migrate --noinput
 python manage.py create_default_superuser
-gunicorn -b :8000 app.wsgi
+
+exec gunicorn --bind :8000 --workers 3 app.wsgi:application

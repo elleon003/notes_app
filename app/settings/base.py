@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'users',
     'ideas',
     'pages',
+    'app',
 ]
 
 MIDDLEWARE = [

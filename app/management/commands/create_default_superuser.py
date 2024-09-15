@@ -9,7 +9,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         User = get_user_model()
         if User.objects.filter(is_superuser=True).count() == 0:
-            # username = config('DJANGO_SUPERUSER_USERNAME')
             email = config('DJANGO_SUPERUSER_EMAIL')
             password = config('DJANGO_SUPERUSER_PASSWORD')
             
