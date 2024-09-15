@@ -37,9 +37,10 @@ MEDIA_ROOT = '/app/media'
 # Whitenoise for static file serving
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 STORAGES = {
-    # ...
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+# Add this to ensure WhiteNoise doesn't try to compress files during collectstatic
+WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 

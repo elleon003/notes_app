@@ -4,7 +4,12 @@ set -e
 
 cd /app
 
-python manage.py collectstatic --noinput --clear
+# Collect static files to a temporary directory
+python manage.py collectstatic --noinput --clear --no-post-process -i *.gz -i *.br --settings=app.settings.temp_static
+
+# Move collected files to the final static directory
+rsync -a --delete ${STATIC_TEMP}/ ${STATIC_ROOT}/
+
 python manage.py migrate --noinput
 python manage.py create_default_superuser
 

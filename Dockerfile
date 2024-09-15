@@ -30,6 +30,7 @@ COPY --chown=appuser:appuser . .
 
 # Set environment variable for static files
 ENV STATIC_ROOT /app/staticfiles
+ENV STATIC_TEMP /app/static_temp
 ENV DJANGO_ENVIRONMENT production
 
 
