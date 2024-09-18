@@ -1,12 +1,18 @@
 from .base import *
-import dj_database_url
 
 DEBUG = False
-ALLOWED_HOSTS = ['notes.s9apps.com','notes-app-notes-app.xbekux.easypanel.host', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['notes.s9apps.com','notes-app-notes-app.xbekux.easypanel.host', 'localhost', '127.0.0.1',]
 CSRF_TRUSTED_ORIGINS = ['https://notes.s9apps.com', 'https://notes-app-notes-app.xbekux.easypanel.host']
 
+ADMINS = [
+    ('Noelle Anderson', 'noelle@ygitc.com')
+]
 
 SECRET_KEY = config('SECRET_KEY')
+
+REDIS_URL = 'redis://cache:6379'
+CACHES['default']['LOCATION'] = REDIS_URL
+CHANNEL_LAYERS['default']['CONFIG']['hosts'] = [REDIS_URL]
 
 # Use a more secure session cookie
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -14,8 +20,7 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-
-# Email configuration (replace with your actual email settings)
+# Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT')
@@ -24,15 +29,19 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
-DATABASE_URL = config('DATABASE_URL')
-
 DATABASES = {
-    'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': 'db',
+        'PORT': 5432,
+    }
 }
 
 STATIC_ROOT = '/app/staticfiles'
 MEDIA_ROOT = '/app/media'
-
 
 # Whitenoise for static file serving
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
