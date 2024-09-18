@@ -10,10 +10,6 @@ ADMINS = [
 
 SECRET_KEY = config('SECRET_KEY')
 
-REDIS_URL = 'redis://cache:6379'
-CACHES['default']['LOCATION'] = REDIS_URL
-CHANNEL_LAYERS['default']['CONFIG']['hosts'] = [REDIS_URL]
-
 # Use a more secure session cookie
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
