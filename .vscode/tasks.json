@@ -25,7 +25,7 @@
 					"--nothreading",
 					"--noreload"
 				],
-				"file": "manage.py"
+				"file": "app/settings/prod.py"
 			}
 		}
 	]
