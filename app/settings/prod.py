@@ -1,9 +1,10 @@
 from .base import *
 import dj_database_url
+from decouple import config
 
 DEBUG = False
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '5.161.108.114', 'notes-app-notes-app.yvrrum.easypanel.host']
-CSRF_TRUSTED_ORIGINS = ['https://notes-app-notes-app.yvrrum.easypanel.host/']
+ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='').split(',')
+CSRF_TRUSTED_ORIGINS = config('DJANGO_CSRF_TRUSTED_ORIGINS', default='').split(',')
 
 ADMINS = [
     ('Noelle Anderson', 'noelle@ygitc.com')
