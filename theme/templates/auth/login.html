@@ -21,6 +21,12 @@
           </label>
           <input type="password" name="password" required id="{{ form.password.id_for_label }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
+
+        <div class="mb-4 w-full">
+          {{ form.media }}
+          {{ form.turnstile }}
+        </div>
+      
         <div class="flex items-center justify-between">
           <button class="bg-emerald-700 hover:bg-purple-900 hover:ease-in duration-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             Log In
@@ -46,4 +52,9 @@
     </div>-->
     </div>
   </div>
+{% endblock %}
+
+{% block extra_top_script %} 
+  <!--Turnstile Javascript-->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 {% endblock %}

@@ -15,6 +15,7 @@
     <link rel="apple-touch-icon" href="{% static 'img/icon-192x192.png' %}">
 
     <title>{% block title %}Idea Manager{% endblock %}</title>
+    {% block extra_top_script %} {% endblock %}
     {% tailwind_css %}
   </head>
   <body class="bg-slate-100 flex flex-col h-full">

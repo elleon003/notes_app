@@ -6,9 +6,6 @@ DEBUG = False
 ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='').split(',')
 CSRF_TRUSTED_ORIGINS = config('DJANGO_CSRF_TRUSTED_ORIGINS', default='').split(',')
 
-ADMINS = [
-    ('Noelle Anderson', 'noelle@ygitc.com')
-]
 
 SECRET_KEY = config('SECRET_KEY')
 
