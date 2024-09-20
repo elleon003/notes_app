@@ -2,8 +2,8 @@ from .base import *
 import dj_database_url
 
 DEBUG = False
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '5.161.108.114', 'notes-app-notes-app-main.yvrrum.easypanel.host']
-CSRF_TRUSTED_ORIGINS = ['https://notes-app-notes-app-main.yvrrum.easypanel.host/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '5.161.108.114', 'notes-app-notes-app.yvrrum.easypanel.host']
+CSRF_TRUSTED_ORIGINS = ['https://notes-app-notes-app.yvrrum.easypanel.host/']
 
 ADMINS = [
     ('Noelle Anderson', 'noelle@ygitc.com')
