@@ -107,9 +107,6 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
-MEDIA_ROOT = BASE_DIR / "media"
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
