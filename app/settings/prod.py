@@ -1,8 +1,8 @@
 from .base import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '5.161.108.114',]
-# CSRF_TRUSTED_ORIGINS = ['']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '5.161.108.114' '*.yvrrum.easypanel.host',]
+CSRF_TRUSTED_ORIGINS = ['']
 
 ADMINS = [
     ('Noelle Anderson', 'noelle@ygitc.com')
@@ -10,11 +10,11 @@ ADMINS = [
 
 SECRET_KEY = config('SECRET_KEY')
 
-# # Use a more secure session cookie
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
+# Use a more secure session cookie
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
