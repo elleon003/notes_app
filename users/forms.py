@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from .models import CustomUser
 from turnstile.fields import TurnstileField
@@ -11,7 +12,11 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ('email', )
 
 class CustomAuthenticationForm(AuthenticationForm):
-    turnstile = TurnstileField()
+    turnstile = TurnstileField(theme='dark',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['turnstile'].widget.attrs['data-sitekey'] = settings.TURNSTILE_SITE_KEY
 
     def clean(self):
         cleaned_data = super().clean()

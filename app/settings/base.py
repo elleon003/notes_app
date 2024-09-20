@@ -109,6 +109,7 @@ LOGOUT_REDIRECT_URL = 'home'
 
 # Turnstile settings
 TURNSTILE_SITE_KEY = config('TURNSTILE_SITE_KEY')
+print(f"Turnstile Site Key: {TURNSTILE_SITE_KEY}") #debug @TODO
 TURNSTILE_SECRET_KEY = config('TURNSTILE_SECRET_KEY')
 
 
