@@ -4,11 +4,10 @@ pillow==10.4.0
 django-browser-reload==1.15.0
 Faker==28.4.1
 python-decouple==3.8
-django-allauth==64.2.1
 PyJWT==2.9.0
 cryptography==43.0.1
 requests==2.32.3
 gunicorn==23.0.0
-psycopg2-binary==2.9.9
-dj-database-url==2.2.0
+# psycopg2-binary==2.9.9
 whitenoise==6.7.0
+psycopg==3.1.18

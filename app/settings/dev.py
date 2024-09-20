@@ -1,13 +1,13 @@
 from .base import *
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
 
 DEBUG = True
 
-TEMPLATES[0]['OPTIONS']['debug'] = True
-
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+INSTALLED_APPS += ['django_browser_reload']
+MIDDLEWARE += ['django_browser_reload.middleware.BrowserReloadMiddleware']
 
 INTERNAL_IPS = [
     "127.0.0.1",

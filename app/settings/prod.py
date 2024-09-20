@@ -1,8 +1,8 @@
 from .base import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['notes-app-notes-app-main.xbekux.easypanel.host', 'localhost', '127.0.0.1' '5.161.108.114',]
-CSRF_TRUSTED_ORIGINS = ['https://notes-app-notes-app-main.xbekux.easypanel.host']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '5.161.108.114',]
+# CSRF_TRUSTED_ORIGINS = ['']
 
 ADMINS = [
     ('Noelle Anderson', 'noelle@ygitc.com')
@@ -10,11 +10,11 @@ ADMINS = [
 
 SECRET_KEY = config('SECRET_KEY')
 
-# Use a more secure session cookie
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# # Use a more secure session cookie
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -36,9 +36,6 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = '/app/staticfiles'
-MEDIA_ROOT = '/app/media'
-
 # Whitenoise for static file serving
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 STORAGES = {
@@ -49,3 +46,21 @@ STORAGES = {
 # Add this to ensure WhiteNoise doesn't try to compress files during collectstatic
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'django_error.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
