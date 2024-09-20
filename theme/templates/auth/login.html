@@ -41,15 +41,7 @@
         />
       </div>
 
-      {% comment %}
       <div class="mb-4 w-full">{{ form.turnstile }}</div>
-      {% endcomment %}
-
-      <div
-        class="cf-turnstile"
-        data-sitekey="{{ form.turnstile.widget.attrs.data_sitekey }}"
-        data-callback="javascriptCallback"
-      ></div>
 
       <div class="flex items-center justify-between">
         <button
