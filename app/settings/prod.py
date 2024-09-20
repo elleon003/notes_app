@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '5.161.108.114' '*.yvrrum.easypanel.host',]
-CSRF_TRUSTED_ORIGINS = ['']
+CSRF_TRUSTED_ORIGINS = ['https://notes-app-notes-app-main.yvrrum.easypanel.host/']
 
 ADMINS = [
     ('Noelle Anderson', 'noelle@ygitc.com')
