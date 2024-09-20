@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     'ideas',
     'pages',
     'app',
-    'turnstile',
 ]
 
 MIDDLEWARE = [
@@ -106,11 +105,6 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-
-# Turnstile settings
-TURNSTILE_SITE_KEY = config('TURNSTILE_SITE_KEY')
-print(f"Turnstile Site Key: {TURNSTILE_SITE_KEY}") #debug @TODO
-TURNSTILE_SECRET_KEY = config('TURNSTILE_SECRET_KEY')
 
 
 # Internationalization
