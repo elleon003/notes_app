@@ -15,7 +15,10 @@
     <link rel="apple-touch-icon" href="{% static 'img/icon-192x192.png' %}" />
 
     <title>{% block title %}Idea Manager{% endblock %}</title>
-    {% block extra_top_script %} {% endblock %} {% tailwind_css %}
+
+    {% block extra_top_script %} {% endblock %} 
+    
+    {% tailwind_css %}
   </head>
   <body class="bg-slate-100 flex flex-col h-full">
     <a
@@ -34,123 +37,10 @@
 
     <footer class="bg-slate-950 text-white mt-auto px-12 py-8"></footer>
 
-    <!-- Logout confirmation -->
-    <script>
-      document.addEventListener('DOMContentLoaded', (event) => {
-          const logoutForm = document.querySelector('form[action="{% url 'logout' %}"]');
-          if (logoutForm) {
-              logoutForm.addEventListener('submit', function(e) {
-                  e.preventDefault();
-                  if (confirm('Are you sure you want to log out?')) {
-                      this.submit();
-                  }
-              });
-          }
-      });
-    </script>
-
-    <!-- Mobile Menu Helper -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const navToggle = document.getElementById("nav-toggle");
-        const mobileMenu = document.getElementById("mobile-menu");
-        const menuIcon = navToggle.querySelector("svg:first-child");
-        const closeIcon = navToggle.querySelector("svg:last-child");
-
-        function openMenu() {
-          mobileMenu.classList.remove("-translate-x-full");
-          navToggle.setAttribute("aria-expanded", "true");
-          menuIcon.classList.add("opacity-0");
-          closeIcon.classList.remove("opacity-0");
-        }
-
-        function closeMenu() {
-          mobileMenu.classList.add("-translate-x-full");
-          navToggle.setAttribute("aria-expanded", "false");
-          menuIcon.classList.remove("opacity-0");
-          closeIcon.classList.add("opacity-0");
-        }
-
-        navToggle.addEventListener("click", function (e) {
-          e.stopPropagation();
-          if (mobileMenu.classList.contains("-translate-x-full")) {
-            openMenu();
-          } else {
-            closeMenu();
-          }
-        });
-
-        document.addEventListener("click", function (event) {
-          if (
-            !mobileMenu.contains(event.target) &&
-            !navToggle.contains(event.target)
-          ) {
-            closeMenu();
-          }
-        });
-
-        window.addEventListener("resize", function () {
-          if (window.innerWidth >= 1024) {
-            closeMenu();
-          }
-        });
-      });
-    </script>
-
-    <!-- Service worker register -->
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", function () {
-          navigator.serviceWorker.register("/static/service-worker.js").then(
-            function (registration) {
-              console.log(
-                "ServiceWorker registration successful with scope: ",
-                registration.scope
-              );
-            },
-            function (err) {
-              console.log("ServiceWorker registration failed: ", err);
-            }
-          );
-        });
-      }
-    </script>
-
-    <!-- App install prompt -->
-    <script>
-      let deferredPrompt;
-
-      window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        // Show your custom "Add to Home Screen" button or banner here
-        // For example:
-        // document.getElementById('installButton').style.display = 'block';
-      });
-
-      // Function to show install prompt
-      function showInstallPrompt() {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === "accepted") {
-              console.log("User accepted the A2HS prompt");
-            }
-            deferredPrompt = null;
-          });
-        }
-      }
-    </script>
-
-    <!-- Offline sync Trigger when back online -->
-    <script>
-      window.addEventListener("online", () => {
-        navigator.serviceWorker.ready.then((swRegistration) => {
-          return swRegistration.sync.register("sync-ideas");
-        });
-      });
-    </script>
-
     {% block extra_js %}{% endblock %}
+
+    <!-- All JS functions -->
+    <script src="{% static 'js/main.js' %}?v=1"></script>
+
   </body>
 </html>
