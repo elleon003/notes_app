@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% load socialaccount %} {% block content %}
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% block content %}
 <div class="flex justify-center h-screen">
   <div class="w-full max-w-md">
     <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -41,7 +43,9 @@
         />
       </div>
 
-      <!-- FIX TURNSTILE @TODO <div class="mb-4 w-full">{{ form.turnstile }}</div> -->
+      <div class="mb-4 w-full">
+        <div class="cf-turnstile" data-sitekey="{{ turnstile_sitekey }}" data-theme="light"></div>
+      </div>
 
       <div class="flex items-center justify-between">
         <button
@@ -89,11 +93,9 @@
     </div>
   </div>
 </div>
-{% endblock %} {% block extra_top_script %}
+{% endblock %}
+
+{% block extra_top_script %}
 <!--Turnstile Javascript-->
-<script
-  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-  async
-  defer
-></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 {% endblock %}

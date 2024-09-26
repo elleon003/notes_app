@@ -45,7 +45,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'app.urls'
 
-SITE_ID = int(config('SITE_ID') )
+SITE_ID = int(config('SITE_ID'))
 
 TEMPLATES = [
     {
@@ -150,3 +150,7 @@ TAILWIND_APP_NAME = 'theme'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For development
+
+# Cloudflare Turnstile settings
+TURNSTILE_SITEKEY = config('TURNSTILE_SITE_KEY', default='')
+TURNSTILE_SECRET = config('TURNSTILE_SECRET_KEY', default='')
