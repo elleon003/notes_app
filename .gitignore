@@ -2,6 +2,7 @@
 staticfiles/
 data/
 .vscode
+ngrok.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

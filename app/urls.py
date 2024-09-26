@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
     path('ideas/', include('ideas.urls')),
+    path('accounts/', include('allauth.urls')),  # Add this line for allauth URLs
     path('login/', auth_views.LoginView.as_view(
         template_name='auth/login.html',
         authentication_form=CustomAuthenticationForm
@@ -23,4 +24,3 @@ if settings.DEBUG:
     urlpatterns += [
         path("__reload__/", include("django_browser_reload.urls")),
     ]
-    

@@ -4,7 +4,8 @@ import logging
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = [host.strip() for host in config('DJANGO_ALLOWED_HOSTS', default='').split(',') if host.strip()]
+
 
 INSTALLED_APPS += ['django_browser_reload']
 MIDDLEWARE += ['django_browser_reload.middleware.BrowserReloadMiddleware']

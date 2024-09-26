@@ -3,9 +3,6 @@ import dj_database_url
 from decouple import config
 
 DEBUG = False
-ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='').split(',')
-CSRF_TRUSTED_ORIGINS = config('DJANGO_CSRF_TRUSTED_ORIGINS', default='').split(',')
-
 
 SECRET_KEY = config('SECRET_KEY')
 
