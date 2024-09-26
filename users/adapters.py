@@ -1,24 +1,38 @@
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
-from allauth.exceptions import ImmediateHttpResponse
-from django.shortcuts import redirect 
-from django.contrib import messages 
+from allauth.account.utils import user_email
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 
-User = get_user_model()
+CustomUser = get_user_model()
 
-
-class MySocialAccountAdapter(DefaultSocialAccountAdapter):
+class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
     def pre_social_login(self, request, sociallogin):
-        # this hook is called before the social login is attempted
         user = sociallogin.user
         if user.id:
             return
+
         try:
-            # Check if email already exists
-            existing_user = self.get_model('user').objects.get(email=user.email)
-            # If it does, connect this social account to the existing user
+            # Check if a user with this email already exists
+            existing_user = CustomUser.objects.get(
+                Q(email__iexact=user_email(user)) | Q(email__iexact=sociallogin.email_addresses[0].email)
+            )
+            
+            # If we get here, we found a matching user
             sociallogin.connect(request, existing_user)
-            # Add a success message
-            messages.success(request, "Successfully connected your account with Google.")
-        except self.get_model('user').DoesNotExist:
+        except CustomUser.DoesNotExist:
+            # No existing user, continue with the normal flow
             pass
+
+    def save_user(self, request, sociallogin, form=None):
+        user = super().save_user(request, sociallogin, form)
+        
+        # Ensure the user is active
+        user.is_active = True
+        user.save()
+        
+        return user
+
+    def populate_user(self, request, sociallogin, data):
+        user = super().populate_user(request, sociallogin, data)
+        user.email = data.get('email')
+        return user

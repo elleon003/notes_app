@@ -1,0 +1,6 @@
+Current Site Configuration:
+ID: 2, Domain: alive-cleanly-flamingo.ngrok-free.app, Name: Local ngrok
+ID: 1, Domain: localhost:8000, Name: Local Site
+
+Attempting to update Site with ID 1:
+Error updating Site: UNIQUE constraint failed: django_site.domain
