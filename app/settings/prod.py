@@ -45,16 +45,41 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'django_error.log',
+            'filename': BASE_DIR / 'django_debug.log',
         },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.template': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.core.mail': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
         },
     },
 }
