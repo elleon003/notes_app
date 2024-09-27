@@ -6,6 +6,15 @@ DEBUG = False
 
 SECRET_KEY = config('SECRET_KEY')
 
+import os
+
+try:
+    from decouple import config
+except ImportError:
+    def config(key, default=None):
+        return os.environ.get(key, default)
+
+
 # Use a more secure session cookie
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
