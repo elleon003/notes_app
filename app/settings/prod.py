@@ -6,14 +6,6 @@ DEBUG = False
 
 SECRET_KEY = config('SECRET_KEY')
 
-import os
-
-try:
-    from decouple import config
-except ImportError:
-    def config(key, default=None):
-        return os.environ.get(key, default)
-
 
 # Use a more secure session cookie
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -50,46 +42,17 @@ STORAGES = {
 # Add this to ensure WhiteNoise doesn't try to compress files during collectstatic
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'django_debug.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'django.security': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'django.template': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'django.db.backends': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'django.core.mail': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-    },
-}
+
+# Sentry SDK setup
+import sentry_sdk
+
+sentry_sdk.init(
+    dsn="https://1bee6e67d7fb0bce94e19a54826cc6d0@o4508028253700096.ingest.us.sentry.io/4508028256780288",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)

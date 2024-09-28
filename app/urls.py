@@ -4,8 +4,13 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from users.views import CustomLoginView
 
+
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('sentry-debug/', trigger_error),
     path('', include('pages.urls')),
     path('ideas/', include('ideas.urls')),
     path('accounts/', include('allauth.urls')),  # Add this line for allauth URLs
