@@ -6,4 +6,23 @@
   .btn-primary {
     @apply bg-emerald-800 text-white font-bold py-2 px-4 rounded hover:bg-purple-900 hover:ease-in duration-300 focus:outline-none;
   }
+
+  .messages {
+    @apply max-w-4xl;
+  }
+  .success {
+    @apply bg-emerald-200 text-emerald-800 p-4 rounded-md font-medium;
+  }
+
+  .info {
+    @apply bg-purple-200 text-purple-900 p-4 rounded-md font-medium;
+  }
+
+  .warning {
+    @apply bg-yellow-200 text-yellow-800 p-4 rounded-md font-medium;
+  }
+
+  .error {
+    @apply bg-red-200 text-red-950 p-4 rounded-md font-medium;
+  }
 }

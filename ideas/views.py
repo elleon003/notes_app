@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db import IntegrityError
 from .models import Idea, Category, Tag
 from .forms import IdeaForm, CategoryForm, TagForm
 
@@ -18,9 +19,12 @@ def category_create(request):
         if form.is_valid():
             category = form.save(commit=False)
             category.user = request.user
-            category.save()
-            messages.success(request, 'Category created successfully!')
-            return redirect('category_list')
+            try:
+                category.save()
+                messages.success(request, 'Category created successfully!')
+                return redirect('category_list')
+            except IntegrityError:
+                messages.error(request, 'A category with this name already exists.')
     else:
         form = CategoryForm()
     return render(request, 'ideas/category_form.html', {'form': form})
@@ -31,9 +35,12 @@ def category_update(request, pk):
     if request.method == 'POST':
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Category updated successfully!')
-            return redirect('category_list')
+            try:
+                form.save()
+                messages.success(request, 'Category updated successfully!')
+                return redirect('category_list')
+            except IntegrityError:
+                messages.error(request, 'A category with this name already exists.')
     else:
         form = CategoryForm(instance=category)
     return render(request, 'ideas/category_form.html', {'form': form})
@@ -61,9 +68,12 @@ def tag_create(request):
         if form.is_valid():
             tag = form.save(commit=False)
             tag.user = request.user
-            tag.save()
-            messages.success(request, 'Tag created successfully!')
-            return redirect('tag_list')
+            try:
+                tag.save()
+                messages.success(request, 'Tag created successfully!')
+                return redirect('tag_list')
+            except IntegrityError:
+                messages.error(request, 'A tag with this name already exists.')
     else:
         form = TagForm()
     return render(request, 'ideas/tag_form.html', {'form': form})
@@ -74,9 +84,13 @@ def tag_update(request, pk):
     if request.method == 'POST':
         form = TagForm(request.POST, instance=tag)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Tag updated successfully!')
-            return redirect('tag_list')
+            try:
+                form.save()
+                messages.success(request, 'Tag updated successfully!')
+                return redirect('tag_list')
+            except IntegrityError:
+                messages.error(request, 'A tag with this name already exists.')
+                print("Message added:", list(messages.get_messages(request)))
     else:
         form = TagForm(instance=tag)
     return render(request, 'ideas/tag_form.html', {'form': form})

@@ -1,10 +1,16 @@
-<!-- templates/ideas/tag_list.html -->
 {% extends 'base.html' %}
 
 {% block content %}
     <h1 class="text-3xl font-bold mb-6">Tags</h1>
+    {% if messages %}
+        <ul class="messages mb-6">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <a href="{% url 'tag_create' %}" class="bg-emerald-800 text-white py-2 px-4 rounded hover:bg-purple-900 mb-4 inline-block">Add Tag</a>
-    <ul class="space-y-2">
+    <ul class="space-y-2 max-w-xl">
         {% for tag in tags %}
             <li class="flex justify-between items-center bg-white p-4 rounded-lg shadow">
                 <span>{{ tag.name }}</span>
