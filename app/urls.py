@@ -14,6 +14,7 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('ideas/', include('ideas.urls')),
     path('accounts/', include('allauth.urls')),  # Add this line for allauth URLs
+    path('users/', include('users.urls')),  # New users URLs for profile management
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='auth/password_reset_form.html'), name='password_reset'),

@@ -1,11 +1,20 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone 
+from django.utils.text import slugify
 
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='categories')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            # Create a unique slug by appending user id to ensure uniqueness across users
+            base_slug = slugify(self.name)
+            self.slug = f"{base_slug}-{self.user.id}"
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -17,7 +26,15 @@ class Category(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50, unique=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tags')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            # Create a unique slug by appending user id to ensure uniqueness across users
+            base_slug = slugify(self.name)
+            self.slug = f"{base_slug}-{self.user.id}"
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -41,4 +58,4 @@ class Idea(models.Model):
         return f"{self.content[:50]}..." if len(self.content) > 50 else self.content
 
     class Meta:
-        ordering = ['-created_at']    
+        ordering = ['-created_at']

@@ -54,6 +54,15 @@ def category_delete(request, pk):
         return redirect('category_list')
     return render(request, 'ideas/category_confirm_delete.html', {'category': category})
 
+@login_required
+def category_ideas(request, slug):
+    category = get_object_or_404(Category, slug=slug, user=request.user)
+    ideas = Idea.objects.filter(user=request.user, category=category)
+    return render(request, 'ideas/category_ideas.html', {
+        'category': category,
+        'ideas': ideas
+    })
+
 
 # Tag views
 @login_required
@@ -103,6 +112,15 @@ def tag_delete(request, pk):
         messages.success(request, 'Tag deleted successfully!')
         return redirect('tag_list')
     return render(request, 'ideas/tag_confirm_delete.html', {'tag': tag})
+
+@login_required
+def tag_ideas(request, slug):
+    tag = get_object_or_404(Tag, slug=slug, user=request.user)
+    ideas = Idea.objects.filter(user=request.user, tags=tag)
+    return render(request, 'ideas/tag_ideas.html', {
+        'tag': tag,
+        'ideas': ideas
+    })
 
 
 # Idea views

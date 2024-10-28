@@ -1,26 +1,56 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %}Tags - Idea Manager{% endblock %} {%
+block content %}
+<div class="flex gap-3 mb-4">
+  <h1 class="text-3xl font-bold mb-6">Tags</h1>
+  <a
+    href="{% url 'tag_create' %}"
+    class="self-baseline px-4 py-2 bg-emerald-800 text-white rounded hover:bg-purple-950 hover:ease-in duration-300"
+    >New Tag</a
+  >
+</div>
 
-{% block content %}
-    <h1 class="text-3xl font-bold mb-6">Tags</h1>
-    {% if messages %}
-        <ul class="messages mb-6">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <a href="{% url 'tag_create' %}" class="bg-emerald-800 text-white py-2 px-4 rounded hover:bg-purple-900 mb-4 inline-block">Add Tag</a>
-    <ul class="space-y-2 max-w-xl">
-        {% for tag in tags %}
-            <li class="flex justify-between items-center bg-white p-4 rounded-lg shadow">
-                <span>{{ tag.name }}</span>
-                <div>
-                    <a href="{% url 'tag_update' tag.pk %}" class="text-purple-950 hover:text-purple-800 mr-2">Edit</a>
-                    <a href="{% url 'tag_delete' tag.pk %}" class="text-red-600 hover:text-red-800">Delete</a>
-                </div>
-            </li>
-        {% empty %}
-            <li>No tags yet.</li>
-        {% endfor %}
-    </ul>
+{% if messages %}
+<ul class="messages mb-6">
+  {% for message in messages %}
+  <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+    {{ message }}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for tag in tags %}
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-semibold mb-2 text-purple-950">
+      {% if tag.idea_set.exists %}
+      <a href="{% url 'tag_ideas' tag.slug %}" class="hover:text-purple-800">
+        {{ tag.name }}
+      </a>
+      {% else %} {{ tag.name }} {% endif %}
+    </h2>
+    <div class="mt-4">
+      <a
+        href="{% url 'tag_update' tag.pk %}"
+        class="text-purple-950 hover:text-purple-800 mr-4"
+        >Edit</a
+      >
+      <a
+        href="{% url 'tag_delete' tag.pk %}"
+        class="text-red-600 hover:text-red-800"
+        >Delete</a
+      >
+    </div>
+  </div>
+  {% empty %}
+  <p>
+    No tags yet.
+    <a
+      href="{% url 'tag_create' %}"
+      class="text-purple-950 hover:text-purple-800"
+      >Create one!</a
+    >
+  </p>
+  {% endfor %}
+</div>
 {% endblock %}

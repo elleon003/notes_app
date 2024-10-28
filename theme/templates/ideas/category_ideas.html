@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Ideas in {{ category.name }} - Idea Manager{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Ideas in Category: {{ category.name }}</h1>
+
+{% if messages %}
+<ul class="messages mb-6">
+  {% for message in messages %}
+  <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+    {{ message }}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<a href="{% url 'category_list' %}" class="bg-purple-950 text-white py-2 px-4 rounded hover:bg-purple-900 mb-4 inline-block">
+  Back to Categories
+</a>
+
+<ul class="space-y-4 max-w-3xl mt-6">
+  {% for idea in ideas %}
+  <li class="bg-white p-4 rounded-lg shadow">
+    <a href="{% url 'idea_detail' idea.pk %}" class="text-purple-950 hover:text-purple-800 text-lg font-semibold">
+      {{ idea.content|truncatechars:50 }}
+    </a>
+    <div class="mt-2 text-sm text-gray-600">
+      <span>Created: {{ idea.created_at|date:"F d, Y" }}</span>
+      {% if idea.due_date %}
+      <span class="ml-4">Due: {{ idea.due_date|date:"F d, Y" }}</span>
+      {% endif %}
+    </div>
+    {% if idea.tags.exists %}
+    <div class="mt-2">
+      {% for tag in idea.tags.all %}
+      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+        #{{ tag.name }}
+      </span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li class="bg-white p-4 rounded-lg shadow text-center">No ideas in this category yet.</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'idea_create' %}" class="bg-emerald-800 text-white py-2 px-4 rounded hover:bg-purple-900 mt-6 inline-block">
+  Add New Idea
+</a>
+{% endblock %}
