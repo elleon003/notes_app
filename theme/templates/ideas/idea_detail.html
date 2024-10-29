@@ -6,6 +6,17 @@
 {% block content %}
 <div class="bg-white dark:bg-slate-800 shadow-md rounded-lg p-6">
   <h1 class="text-3xl font-bold mb-4 text-slate-900 dark:text-white">{{ idea.content }}</h1>
+
+  {% if messages %}
+  <ul class="messages mb-6">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+      {{ message }}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
   <p class="text-gray-600 dark:text-gray-400 mb-4">
     Created on {{ idea.created_at|date:"M d, Y" }}
   </p>

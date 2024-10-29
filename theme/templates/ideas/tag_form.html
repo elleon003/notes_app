@@ -1,22 +1,32 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+<h1 class="text-3xl font-bold mb-6">
+  {% if form.instance.pk %}Edit Tag{% else %}Create Tag{% endif %}
+</h1>
 
-{% block content %}
-    <h1 class="text-3xl font-bold mb-6">{% if form.instance.pk %}Edit Tag{% else %}Create Tag{% endif %}</h1>
-    {% if messages %}
-        <ul class="messages mb-6">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <form method="post" class="bg-white shadow-md rounded-lg p-6 max-w-3xl">
-        {% csrf_token %}
-        <div class="mb-4">
-            <label for="{{ form.name.id_for_label }}" class="block text-purple-950 font-bold mb-2">Tag Name</label>
-            {{ form.name }}
-        </div>
-        <button type="submit" class="bg-emerald-800 text-white py-2 px-4 rounded hover:bg-purple-900">
-            {% if form.instance.pk %}Update{% else %}Create{% endif %} Tag
-        </button>
-    </form>
+{% if messages %}
+<ul class="messages mb-6">
+  {% for message in messages %}
+  <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+    {{ message }}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<form method="post" class="bg-white shadow-md rounded-lg p-6 max-w-3xl">
+  {% csrf_token %}
+  <div class="mb-4">
+    <label
+      for="{{ form.name.id_for_label }}"
+      class="block text-purple-950 font-bold mb-2"
+      >Tag Name</label
+    >
+    {{ form.name }}
+  </div>
+  <button
+    type="submit"
+    class="bg-emerald-800 text-white py-2 px-4 rounded hover:bg-purple-900">
+    {% if form.instance.pk %}Update{% else %}Create{% endif %} Tag
+  </button>
+</form>
 {% endblock %}

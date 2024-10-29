@@ -4,14 +4,14 @@
 <h1 class="text-3xl font-bold mb-6 text-slate-900 dark:text-white">Categories</h1>
 
 {% if messages %}
-<div class="mb-6">
-  {% for message in messages %}
-    <div class="p-4 rounded mb-2 {% if message.tags == 'success' %}bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200{% elif message.tags == 'error' %}bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200{% else %}bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200{% endif %}">
+  <ul class="messages mb-6">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
       {{ message }}
-    </div>
-  {% endfor %}
-</div>
-{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
 
 <a
   href="{% url 'category_create' %}"
