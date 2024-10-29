@@ -1,14 +1,32 @@
-{% extends "account/base_entrance.html" %}
+{% extends "base.html" %}
 {% load i18n %}
-{% load allauth %}
-{% block head_title %}
-    {% trans "Verify Your Email Address" %}
-{% endblock head_title %}
+
+{% block title %}{% trans "Verify Your Email Address" %}{% endblock %}
+
 {% block content %}
-    {% element h1 %}
+<div class="flex justify-center">
+  <div class="w-full max-w-md">
+    <div class="bg-white dark:bg-slate-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h1 class="text-2xl mb-6 text-center font-bold text-purple-950 dark:text-purple-300">
         {% trans "Verify Your Email Address" %}
-    {% endelement %}
-    {% element p %}
-        {% blocktrans %}We have sent an email to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification email in your main inbox, check your spam folder. Please contact us if you do not receive the verification email within a few minutes.{% endblocktrans %}
-    {% endelement %}
-{% endblock content %}
+      </h1>
+
+      <p class="text-slate-600 dark:text-slate-400 text-center leading-relaxed">
+        {% blocktrans %}
+        We have sent an email to you for verification. Follow the link provided to finalize the signup process. 
+        <br><br>
+        If you do not see the verification email in your main inbox, check your spam folder. 
+        <br><br>
+        Please contact us if you do not receive the verification email within a few minutes.
+        {% endblocktrans %}
+      </p>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{% url 'account_login' %}" class="text-purple-900 dark:text-purple-300 hover:text-purple-700 dark:hover:text-purple-400">
+        {% trans "Back to login" %}
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

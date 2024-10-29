@@ -7,19 +7,19 @@
 {% block content %}
 <div class="flex justify-center h-screen">
   <div class="w-full max-w-md">
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div class="bg-white dark:bg-slate-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
       {% if process == "connect" %}
-        <h2 class="text-2xl mb-6 text-center font-bold text-purple-950">
+        <h2 class="text-2xl mb-6 text-center font-bold text-purple-950 dark:text-purple-300">
           {% with provider.name as provider %}{% blocktrans %}Connect {{ provider }}{% endblocktrans %}{% endwith %}
         </h2>
-        <p class="mb-4 text-center text-gray-700">
+        <p class="mb-4 text-center text-slate-600 dark:text-slate-400">
           {% with provider.name as provider %}{% blocktrans %}You are about to connect a new third-party account from {{ provider }}.{% endblocktrans %}{% endwith %}
         </p>
       {% else %}
-        <h2 class="text-2xl mb-6 text-center font-bold text-purple-950">
+        <h2 class="text-2xl mb-6 text-center font-bold text-purple-950 dark:text-purple-300">
           {% with provider.name as provider %}{% blocktrans %}Sign In Via {{ provider }}{% endblocktrans %}{% endwith %}
         </h2>
-        <p class="mb-4 text-center text-gray-700">
+        <p class="mb-4 text-center text-slate-600 dark:text-slate-400">
           {% with provider.name as provider %}{% blocktrans %}You are about to sign in using a third-party account from {{ provider }}.{% endblocktrans %}{% endwith %}
         </p>
       {% endif %}
@@ -35,7 +35,7 @@
     </div>
 
     <div class="text-center mt-4">
-      <a href="{% url 'account_login' %}" class="text-purple-900 hover:text-purple-700">
+      <a href="{% url 'account_login' %}" class="text-purple-900 dark:text-purple-300 hover:text-purple-700 dark:hover:text-purple-400">
         {% trans "Back to main login" %}
       </a>
     </div>

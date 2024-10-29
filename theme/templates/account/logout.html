@@ -4,17 +4,35 @@
 {% block title %}{% trans "Sign Out" %}{% endblock %}
 
 {% block content %}
-<div class="max-w-md mx-auto">
-  <h1 class="text-2xl font-bold mb-4">{% trans "Sign Out" %}</h1>
+<div class="flex justify-center">
+  <div class="w-full max-w-md">
+    <div class="bg-white dark:bg-slate-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h1 class="text-2xl mb-6 text-center font-bold text-purple-950 dark:text-purple-300">
+        {% trans "Sign Out" %}
+      </h1>
 
-  <p class="mb-4">{% trans 'Are you sure you want to sign out?' %}</p>
+      <p class="mb-6 text-center text-slate-600 dark:text-slate-400">
+        {% trans 'Are you sure you want to sign out?' %}
+      </p>
 
-  <form method="post" action="{% url 'account_logout' %}">
-    {% csrf_token %}
-    {% if redirect_field_value %}
-    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-    {% endif %}
-    <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700" type="submit">{% trans 'Sign Out' %}</button>
-  </form>
+      <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <div class="flex justify-center">
+          <button type="submit" class="bg-emerald-700 hover:bg-purple-900 hover:ease-in duration-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            {% trans 'Sign Out' %}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{% url 'home' %}" class="text-purple-900 dark:text-purple-300 hover:text-purple-700 dark:hover:text-purple-400">
+        {% trans "Cancel" %}
+      </a>
+    </div>
+  </div>
 </div>
 {% endblock %}

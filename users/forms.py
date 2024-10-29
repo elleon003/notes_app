@@ -1,18 +1,74 @@
 from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, PasswordChangeForm
+from allauth.account.forms import SignupForm
 from .models import CustomUser
 import requests
 
 INPUT_CLASSES = "w-full px-3 py-2 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-950 dark:focus:ring-purple-400 focus:border-transparent text-slate-900 dark:text-white"
 READONLY_CLASSES = "w-full px-3 py-2 bg-slate-100 dark:bg-slate-600 border border-slate-300 dark:border-slate-500 rounded-md text-slate-700 dark:text-slate-300"
 
-class CustomUserCreationForm(UserCreationForm):
+class TurnstileMixin:
+    def clean(self):
+        cleaned_data = super().clean()
+        turnstile_response = self.data.get('cf-turnstile-response')
+        
+        if not turnstile_response:
+            raise forms.ValidationError(
+                'Please complete the Turnstile challenge.',
+                code='invalid_turnstile'
+            )
+
+        # Verify the token with Cloudflare
+        data = {
+            'secret': settings.TURNSTILE_SECRET,
+            'response': turnstile_response,
+        }
+        
+        response = requests.post(
+            'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+            data=data
+        )
+        
+        if not response.ok or not response.json().get('success'):
+            raise forms.ValidationError(
+                'Turnstile validation failed. Please try again.',
+                code='invalid_turnstile'
+            )
+            
+        return cleaned_data
+
+class CustomSignupForm(TurnstileMixin, SignupForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            if not isinstance(field.widget, forms.HiddenInput):
+                field.widget.attrs.update({
+                    'class': INPUT_CLASSES
+                })
+
+class CustomUserCreationForm(TurnstileMixin, UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ('email',)
 
-class CustomAuthenticationForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            if not isinstance(field.widget, forms.HiddenInput):
+                field.widget.attrs.update({
+                    'class': INPUT_CLASSES
+                })
+
+class CustomAuthenticationForm(TurnstileMixin, AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            if not isinstance(field.widget, forms.HiddenInput):
+                field.widget.attrs.update({
+                    'class': INPUT_CLASSES
+                })
+
     def clean(self):
         cleaned_data = super().clean()
         return cleaned_data

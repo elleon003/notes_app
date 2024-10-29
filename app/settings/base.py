@@ -18,8 +18,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # Local apps
-    'theme',
-    'users',
+    'theme.apps.ThemeConfig',  # Updated to use ThemeConfig
+    'users.apps.UsersConfig',
     'ideas',
     'pages',
     'app',
@@ -63,6 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'theme.context_processors.turnstile_settings',
             ],
         },
     },
@@ -116,6 +117,9 @@ SOCIALACCOUNT_STORE_TOKENS = True
 SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+ACCOUNT_FORMS = {
+    'signup': 'users.forms.CustomSignupForm',
+}
 
 # Google OAuth settings
 SOCIALACCOUNT_PROVIDERS = {

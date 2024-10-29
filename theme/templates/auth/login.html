@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load socialaccount %}
 
+{% block extra_top_script %}
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+{% endblock %}
+
 {% block content %}
 <div class="flex justify-center h-screen">
   <div class="w-full max-w-md">
@@ -11,6 +15,13 @@
       <p class="text-red-500 dark:text-red-400 text-xs italic mb-4">
         Your email and password didn't match. Please try again.
       </p>
+      {% endif %}
+      {% if form.non_field_errors %}
+      <div class="mb-4">
+        {% for error in form.non_field_errors %}
+        <p class="text-red-500 dark:text-red-400 text-xs italic">{{ error }}</p>
+        {% endfor %}
+      </div>
       {% endif %}
       <div class="mb-4">
         <label
@@ -43,6 +54,8 @@
           class="w-full px-3 py-2 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-950 dark:focus:ring-purple-400 focus:border-transparent text-slate-900 dark:text-white"
         />
       </div>
+
+      <div class="cf-turnstile mb-4 flex justify-center" data-sitekey="{{ settings.TURNSTILE_SITEKEY }}"></div>
 
       <div class="flex items-center justify-between">
         <button
@@ -81,12 +94,21 @@
         Sign in with Google
       </a>
     </div>
-    <div class="text-center mt-4">
-      <a
-        href="{% url 'password_reset' %}"
-        class="text-purple-900 dark:text-purple-300 hover:text-purple-700 dark:hover:text-purple-400"
-        >Forgot Password?</a
-      >
+    <div class="text-center mt-4 space-y-2">
+      <div>
+        <a
+          href="{% url 'password_reset' %}"
+          class="text-purple-900 dark:text-purple-300 hover:text-purple-700 dark:hover:text-purple-400"
+          >Forgot Password?</a
+        >
+      </div>
+      <div>
+        <a
+          href="{% url 'account_signup' %}"
+          class="text-purple-900 dark:text-purple-300 hover:text-purple-700 dark:hover:text-purple-400"
+          >Need an account? Sign up here</a
+        >
+      </div>
     </div>
   </div>
 </div>
