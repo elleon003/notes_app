@@ -4,7 +4,7 @@ from django.utils.text import slugify
 def fix_empty_slugs(apps, schema_editor):
     # Fix Category slugs
     Category = apps.get_model('ideas', 'Category')
-    for category in Category.objects.filter(slug=''):
+    for category in Category.objects.filter(slug__isnull=True):
         base_slug = slugify(category.name)
         if not base_slug:
             base_slug = 'untitled'
@@ -13,7 +13,7 @@ def fix_empty_slugs(apps, schema_editor):
 
     # Fix Tag slugs
     Tag = apps.get_model('ideas', 'Tag')
-    for tag in Tag.objects.filter(slug=''):
+    for tag in Tag.objects.filter(slug__isnull=True):
         base_slug = slugify(tag.name)
         if not base_slug:
             base_slug = 'untitled'
@@ -22,7 +22,7 @@ def fix_empty_slugs(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('ideas', '0003_category_slug_tag_slug'),  # Updated to correct previous migration
+        ('ideas', '0003_category_slug_tag_slug'),
     ]
 
     operations = [

@@ -10,14 +10,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        # First add the fields without unique constraint
         migrations.AddField(
             model_name='category',
             name='slug',
-            field=models.SlugField(blank=True, max_length=100, unique=True),
+            field=models.SlugField(blank=True, max_length=100, null=True),
         ),
         migrations.AddField(
             model_name='tag',
             name='slug',
-            field=models.SlugField(blank=True, unique=True),
+            field=models.SlugField(blank=True, null=True),
         ),
     ]
