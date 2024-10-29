@@ -22,7 +22,7 @@ def fix_empty_slugs(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('ideas', '0003_auto_20240428_2038'),  # Update this to your actual previous migration
+        ('ideas', '0003_category_slug_tag_slug'),  # Updated to correct previous migration
     ]
 
     operations = [
