@@ -6,14 +6,15 @@ from django.utils.text import slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100, unique=True, blank=True)
+    slug = models.SlugField(max_length=100, unique=True)  # Removed blank=True
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='categories')
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            # Create a unique slug by appending user id to ensure uniqueness across users
-            base_slug = slugify(self.name)
-            self.slug = f"{base_slug}-{self.user.id}"
+        # Always generate a slug, don't check if it's empty
+        base_slug = slugify(self.name)
+        if not base_slug:
+            base_slug = 'untitled'  # Fallback for empty names
+        self.slug = f"{base_slug}-{self.user.id}"
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -26,14 +27,15 @@ class Category(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, unique=True, blank=True)
+    slug = models.SlugField(max_length=50, unique=True)  # Removed blank=True
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tags')
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            # Create a unique slug by appending user id to ensure uniqueness across users
-            base_slug = slugify(self.name)
-            self.slug = f"{base_slug}-{self.user.id}"
+        # Always generate a slug, don't check if it's empty
+        base_slug = slugify(self.name)
+        if not base_slug:
+            base_slug = 'untitled'  # Fallback for empty names
+        self.slug = f"{base_slug}-{self.user.id}"
         super().save(*args, **kwargs)
 
     def __str__(self):
