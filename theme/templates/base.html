@@ -19,15 +19,24 @@
     {% block extra_top_script %} {% endblock %} 
     
     {% tailwind_css %}
+    
+    <script>
+      // Check for saved theme preference, otherwise use system preference
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    </script>
   </head>
-  <body class="bg-slate-100 flex flex-col h-full">
+  <body class="bg-slate-100 dark:bg-slate-900 flex flex-col h-full text-slate-900 dark:text-slate-100 transition-colors duration-200">
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-purple-950 text-white p-2"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-purple-950 dark:bg-purple-900 text-white p-2"
       >Skip to main content</a
     >
 
-    <header class="bg-purple-950 p-4 text-white">
+    <header class="bg-purple-950 dark:bg-purple-900 p-4 text-white">
       {% include 'includes/nav.html' %}
     </header>
 
@@ -35,12 +44,24 @@
       {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-slate-950 text-white mt-auto px-12 py-8"></footer>
+    <footer class="bg-slate-950 dark:bg-slate-950 text-white mt-auto px-12 py-8"></footer>
 
     {% block extra_js %}{% endblock %}
 
     <!-- All JS functions -->
     <script src="{% static 'js/main.js' %}?v=1"></script>
 
+    <script>
+      function toggleTheme() {
+        // Toggle theme
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark')
+          localStorage.theme = 'light'
+        } else {
+          document.documentElement.classList.add('dark')
+          localStorage.theme = 'dark'
+        }
+      }
+    </script>
   </body>
 </html>

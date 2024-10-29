@@ -13,6 +13,7 @@ module.exports = {
         '../../**/*.py',
         '!../../data/'
     ],
+    darkMode: 'class',
     theme: {
         extend: {},
     },

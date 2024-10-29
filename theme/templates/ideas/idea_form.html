@@ -1,19 +1,18 @@
 {% extends 'base.html' %} 
 {% block title %}
-  {% if form.instance.pk %}Edit Idea{%
-else %}New Idea{% endif %}
+  {% if form.instance.pk %}Edit Idea{% else %}New Idea{% endif %}
 {% endblock %} 
 
 {% block content %}
-<h1 class="text-3xl font-bold mb-6">
+<h1 class="text-3xl font-bold mb-6 text-slate-900 dark:text-white">
   {% if form.instance.pk %}Edit Idea{% else %}New Idea{% endif %}
 </h1>
-<form method="post" class="bg-white shadow-md rounded-lg p-6">
+<form method="post" class="bg-white dark:bg-slate-800 shadow-md rounded-lg p-6">
   {% csrf_token %}
   <div class="mb-4">
     <label
       for="{{ form.content.id_for_label }}"
-      class="block text-purple-950 font-bold mb-2"
+      class="block text-purple-950 dark:text-purple-300 font-bold mb-2"
       >Idea</label
     >
     {{ form.content }}
@@ -22,15 +21,18 @@ else %}New Idea{% endif %}
     <button
       type="button"
       onclick="toggleAccordion('additionalFields')"
-      class="text-purple-950 font-bold mb-2"
+      class="text-purple-950 dark:text-purple-300 font-bold mb-2 flex items-center gap-2 hover:text-purple-800 dark:hover:text-purple-400 transition-colors duration-200"
     >
-      Additional Fields ▼
+      Additional Fields
+      <svg id="accordionIcon" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
     </button>
     <div id="additionalFields" class="hidden">
       <div class="my-4">
         <label
           for="{{ form.side_notes.id_for_label }}"
-          class="block text-purple-950 font-bold mb-2"
+          class="block text-purple-950 dark:text-purple-300 font-bold mb-2"
           >Side Notes</label
         >
         {{ form.side_notes }}
@@ -38,7 +40,7 @@ else %}New Idea{% endif %}
       <div class="mb-4">
         <label
           for="{{ form.start_date.id_for_label }}"
-          class="block text-purple-950 font-bold mb-2"
+          class="block text-purple-950 dark:text-purple-300 font-bold mb-2"
           >Start Date</label
         >
         {{ form.start_date }}
@@ -46,7 +48,7 @@ else %}New Idea{% endif %}
       <div class="mb-4">
         <label
           for="{{ form.due_date.id_for_label }}"
-          class="block text-purple-950 font-bold mb-2"
+          class="block text-purple-950 dark:text-purple-300 font-bold mb-2"
           >Due Date</label
         >
         {{ form.due_date }}
@@ -55,34 +57,32 @@ else %}New Idea{% endif %}
         <div class="flex items-center gap-2">
           <label
           for="{{ form.category.id_for_label }}"
-          class="block text-purple-950 font-bold mb-2"
+          class="block text-purple-950 dark:text-purple-300 font-bold mb-2"
           >Category</label>
-          <a href="{% url "category_create" %}" class="text-emerald-800 font-semibold text-sm">Create New Category</a>
+          <a href="{% url "category_create" %}" class="text-emerald-700 dark:text-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 font-semibold text-sm">Create New Category</a>
         </div>
         {{ form.category }}
-        
       </div>
       <div class="mb-4">
         <div class="flex items-center gap-2">
           <label
             for="{{ form.tags.id_for_label }}"
-            class="block text-purple-950 font-bold mb-2"
+            class="block text-purple-950 dark:text-purple-300 font-bold mb-2"
             >Tags</label>
-          <a href="{% url "tag_create" %}" class="text-emerald-800 font-semibold text-sm">Create New Tags</a>
+          <a href="{% url "tag_create" %}" class="text-emerald-700 dark:text-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 font-semibold text-sm">Create New Tags</a>
         </div>
         {{ form.tags }}
       </div>
     </div>
   </div>
   <div class="flex">
-    <button type="submit" class="bg-emerald-800 text-white py-2 px-4 rounded hover:bg-purple-950 hover:ease-in duration-300">
+    <button type="submit" class="bg-emerald-700 text-white py-2 px-4 rounded hover:bg-purple-900 hover:ease-in duration-300">
       {% if form.instance.pk %}Update{% else %}Create{% endif %} Idea
     </button>
-    <a href="{% url 'home' %}" class="bg-gray-300 text-gray-800 py-2 px-4 rounded ml-8 hover:bg-gray-400 hover:ease-in duration-300">
+    <a href="{% url 'home' %}" class="bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-200 py-2 px-4 rounded ml-8 hover:bg-gray-400 dark:hover:bg-gray-500 hover:ease-in duration-300">
         Cancel
-      </a>
+    </a>
   </div>
-  
 </form>
 {% endblock %}
 
@@ -90,8 +90,10 @@ else %}New Idea{% endif %}
   <script>
     function toggleAccordion(id) {
         const content = document.getElementById(id);
+        const icon = document.getElementById('accordionIcon');
         if (content) {
             content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
         }
     }
   </script>

@@ -4,6 +4,9 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Authenti
 from .models import CustomUser
 import requests
 
+INPUT_CLASSES = "w-full px-3 py-2 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-950 dark:focus:ring-purple-400 focus:border-transparent text-slate-900 dark:text-white"
+READONLY_CLASSES = "w-full px-3 py-2 bg-slate-100 dark:bg-slate-600 border border-slate-300 dark:border-slate-500 rounded-md text-slate-700 dark:text-slate-300"
+
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
@@ -29,31 +32,31 @@ class UserProfileForm(forms.ModelForm):
         self.fields['first_name'].required = False
         self.fields['last_name'].required = False
         self.fields['email'].widget.attrs.update({
-            'class': 'w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-950 focus:border-transparent',
+            'class': READONLY_CLASSES,
             'readonly': True
         })
         self.fields['first_name'].widget.attrs.update({
-            'class': 'w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-950 focus:border-transparent'
+            'class': INPUT_CLASSES
         })
         self.fields['last_name'].widget.attrs.update({
-            'class': 'w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-950 focus:border-transparent'
+            'class': INPUT_CLASSES
         })
 
 class EmailChangeForm(forms.Form):
     current_email = forms.EmailField(widget=forms.EmailInput(attrs={
-        'class': 'w-full px-3 py-2 bg-slate-100 border border-slate-300 rounded-md',
+        'class': READONLY_CLASSES,
         'readonly': 'readonly'
     }))
     new_email = forms.EmailField(
         label="New Email Address",
         widget=forms.EmailInput(attrs={
-            'class': 'w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-950 focus:border-transparent'
+            'class': INPUT_CLASSES
         })
     )
     confirm_new_email = forms.EmailField(
         label="Confirm New Email Address",
         widget=forms.EmailInput(attrs={
-            'class': 'w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-950 focus:border-transparent'
+            'class': INPUT_CLASSES
         })
     )
     
@@ -80,5 +83,5 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs.update({
-                'class': 'w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-950 focus:border-transparent'
+                'class': INPUT_CLASSES
             })

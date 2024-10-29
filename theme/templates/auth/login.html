@@ -4,17 +4,17 @@
 {% block content %}
 <div class="flex justify-center h-screen">
   <div class="w-full max-w-md">
-    <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form method="post" class="bg-white dark:bg-slate-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
       {% csrf_token %}
-      <h2 class="text-2xl mb-6 text-center font-bold text-purple-950">Login</h2>
+      <h2 class="text-2xl mb-6 text-center font-bold text-purple-950 dark:text-purple-300">Login</h2>
       {% if form.errors %}
-      <p class="text-red-500 text-xs italic mb-4">
+      <p class="text-red-500 dark:text-red-400 text-xs italic mb-4">
         Your email and password didn't match. Please try again.
       </p>
       {% endif %}
       <div class="mb-4">
         <label
-          class="block text-purple-950 text-sm font-bold mb-2"
+          class="block text-purple-950 dark:text-purple-300 text-sm font-bold mb-2"
           for="{{ form.username.id_for_label }}"
         >
           Email
@@ -25,12 +25,12 @@
           autofocus
           required
           id="{{ form.username.id_for_label }}"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          class="w-full px-3 py-2 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-950 dark:focus:ring-purple-400 focus:border-transparent text-slate-900 dark:text-white"
         />
       </div>
       <div class="mb-6">
         <label
-          class="block text-purple-950 text-sm font-bold mb-2"
+          class="block text-purple-950 dark:text-purple-300 text-sm font-bold mb-2"
           for="{{ form.password.id_for_label}}"
         >
           Password
@@ -40,7 +40,7 @@
           name="password"
           required
           id="{{ form.password.id_for_label }}"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          class="w-full px-3 py-2 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-950 dark:focus:ring-purple-400 focus:border-transparent text-slate-900 dark:text-white"
         />
       </div>
 
@@ -54,10 +54,10 @@
       </div>
     </form>
     <div class="text-center mt-4">
-      <p class="text-purple-950 mb-2">Or</p>
+      <p class="text-purple-950 dark:text-purple-300 mb-2">Or</p>
       <a
         href="{% provider_login_url 'google' %}"
-        class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow inline-flex items-center"
+        class="bg-white dark:bg-slate-700 hover:bg-gray-100 dark:hover:bg-slate-600 text-gray-800 dark:text-gray-200 font-semibold py-2 px-4 border border-gray-400 dark:border-gray-600 rounded shadow inline-flex items-center"
       >
         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
           <path
@@ -84,12 +84,10 @@
     <div class="text-center mt-4">
       <a
         href="{% url 'password_reset' %}"
-        class="text-purple-900 hover:text-purple-700"
+        class="text-purple-900 dark:text-purple-300 hover:text-purple-700 dark:hover:text-purple-400"
         >Forgot Password?</a
       >
     </div>
   </div>
 </div>
 {% endblock %}
-
-
