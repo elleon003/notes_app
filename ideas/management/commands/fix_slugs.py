@@ -1,11 +1,34 @@
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
+from django.db import connection
 from ideas.models import Category, Tag
 
 class Command(BaseCommand):
     help = 'Fix empty or problematic slugs in Categories and Tags'
 
+    def column_exists(self, table, column):
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT COUNT(*)
+                FROM information_schema.columns
+                WHERE table_name = %s
+                AND column_name = %s;
+            """, [table, column])
+            return cursor.fetchone()[0] > 0
+
     def handle(self, *args, **options):
+        # Check if slug columns exist
+        category_slug_exists = self.column_exists('ideas_category', 'slug')
+        tag_slug_exists = self.column_exists('ideas_tag', 'slug')
+
+        if not category_slug_exists:
+            self.stdout.write(self.style.WARNING('Category slug column does not exist yet. Please run migrations first.'))
+            return
+
+        if not tag_slug_exists:
+            self.stdout.write(self.style.WARNING('Tag slug column does not exist yet. Please run migrations first.'))
+            return
+
         # Fix Categories
         empty_slug_categories = Category.objects.filter(slug='')
         if empty_slug_categories.exists():
