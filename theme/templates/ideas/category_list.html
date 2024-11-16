@@ -1,9 +1,8 @@
 {% extends 'base.html' %} 
 
 {% block content %}
-<h1 class="text-3xl font-bold mb-6 text-slate-900 dark:text-white">Categories</h1>
-
-{% if messages %}
+<div id="alert">
+  {% if messages %}
   <ul class="messages mb-6">
     {% for message in messages %}
     <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
@@ -12,6 +11,8 @@
     {% endfor %}
   </ul>
   {% endif %}
+</div>
+<h1 class="text-3xl font-bold mb-6 text-slate-900 dark:text-white">Categories</h1>
 
 <a
   href="{% url 'category_create' %}"

@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div id="alert">
+    {% if messages %}
+    <ul class="messages mb-6">
+      {% for message in messages %}
+      <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+        {{ message }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+</div>
     <h1 class="text-3xl font-bold mb-6">{% if form.instance.pk %}Edit Category{% else %}Create Category{% endif %}</h1>
     {% if messages %}
         <ul class="messages mb-6">

@@ -2,18 +2,19 @@
 {% block title %}Tags - Idea Manager{% endblock %} 
 
 {% block content %}
+<div id="alert">
+  {% if messages %}
+  <ul class="messages mb-6">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+      {{ message }}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
 <div class="flex gap-3 mb-4">
   <h1 class="text-3xl font-bold mb-6 text-slate-900 dark:text-white">Tags</h1>
-
-  {% if messages %}
-  <div class="mb-6">
-    {% for message in messages %}
-      <div class="p-4 rounded mb-2 {% if message.tags == 'success' %}bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200{% elif message.tags == 'error' %}bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200{% else %}bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200{% endif %}">
-        {{ message }}
-      </div>
-    {% endfor %}
-  </div>
-  {% endif %}
 
   <a
     href="{% url 'tag_create' %}"
